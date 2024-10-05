@@ -1,6 +1,6 @@
 import React from 'react'
 
-const TopHeader = () => {
+const Home = () => {
   return (
     <div>
       
@@ -8,4 +8,4 @@ const TopHeader = () => {
   )
 }
 
-export default TopHeader
+export default Home
