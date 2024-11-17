@@ -1,9 +1,9 @@
 import { configureStore,combineReducers } from '@reduxjs/toolkit'
-import ProductSlice from './slices/ProductSlice'
+import product from './slices/product'
 
 
 const reducer=combineReducers({
-  product=ProductSlice
+  product
 })
 
 
