@@ -9,7 +9,9 @@ class Product(models.Model):
     subtitle = models.CharField(max_length=75, null=True, blank=True)
     description = models.TextField(max_length=75, null=True, blank=True)  # Fixed typo in 'description'
     price = models.DecimalField(decimal_places=2, default=0, max_digits=7)  # Changed to max_digits
+    discount=models.IntegerField(default=0)
     stock = models.IntegerField(default=0)
+    onSale=models.BooleanField(default=False)
     rating = models.DecimalField(decimal_places=2, default=1, max_digits=5)  # Adjusted for max_digits
     category = models.CharField(max_length=75, null=True, blank=True)  # Added max_length
     image = models.ImageField(upload_to='media', default='media/default_image.png')  # Added default value
