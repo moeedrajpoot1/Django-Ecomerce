@@ -7,7 +7,8 @@ import  { BrowserRouter, Routes, Route } from 'react-router-dom'
 import Home from './screens/Home'
 import ProductDeatils from "./screens/ProductDetails"
 import Contact from './screens/Contact'
-import NotFound from './screens/NotFound'
+import NotFound from './layouts/NotFoundPage'
+import AuthContext from './context/AuthContext'
 function App() {
   
 

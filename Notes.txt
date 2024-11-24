@@ -1,0 +1,25 @@
+# >Props drilling
+Props drilling mai hamari value har component se Pass hoti hai  yaha ham use krty hai context api 
+
+
+context api arc ma aik folder bnaya uska nam rakh diya context
+contextApi K sath use hota useContext
+
+contextApi+useContext
+
+useContext hamare component ko context ma access krne ma madat karta hai
+
+const AuthtContextp=CreateContext
+app ma gaye main div ko pack kr diya 
+<AuthContext.provider value={user}>
+</AuthContext.provider>
+user ko hamne app.js ma define kiya hai
+user={user}
+user ko hamne context ma define kiya hai
+const AuthContext=CreateContext
+const AuthContextp=CreateContext.Provider
+  jaha istimal krna usfile mai AuthContext ko import kiya
+or useContext ko import kiya
+  const fname= useContext(AuthContext);
+  console.log(fname);
+  Thats it
