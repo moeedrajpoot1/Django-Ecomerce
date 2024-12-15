@@ -2,3 +2,10 @@
     width: 100px;
     height: 100px;
 }
+.myCard{
+width: 230px;
+height: 200px;
+}
+.title{
+    text-shadow: 3px 2px 2px black;
+}

@@ -5,10 +5,11 @@ import './App.css'
 /*  React Router Dom */
 import  { BrowserRouter, Routes, Route } from 'react-router-dom'
 import Home from './screens/Home'
-import ProductDeatils from "./screens/ProductDetails"
+import ProductDeatils from "./layouts/ProductDetails"
 import Contact from './screens/Contact'
 import NotFound from './layouts/NotFoundPage'
-import AuthContext from './context/AuthContext'
+import SingleProduct from './screens/SingleProduct'
+
 function App() {
   
 
@@ -25,7 +26,7 @@ Multi Vendor
    <BrowserRouter>
    <Routes>
     <Route path='/' element={<Home/>}/>
-    <Route path='/product/:id' element={<ProductDeatils/>}/>
+    <Route path='/product/:id' element={<SingleProduct/>}/>
     <Route path='/contact' element={<Contact/>}/>
     <Route path='*' element={<NotFound/>}/>
     

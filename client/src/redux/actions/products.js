@@ -12,6 +12,8 @@ export const fetchProducts=()=> async(dispatch)=>{
     dispatch(setLoading())
     try {
         const response = await axios.get("http://127.0.0.1:8000/api/products"); // Corrected URL
+        console.log(response.data,'responseeeeeeeeeeeeeeeeee dataaaaaaaaaaaaaa'
+        )
         dispatch(setProducts(response.data)); // Ensure response data structure is correct
         
       } catch (error) {
