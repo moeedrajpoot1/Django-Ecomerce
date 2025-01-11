@@ -9,9 +9,9 @@ const PriceComponents = ({product}) => {
       
       {product.onSale ? 
     <>
-      <p className='text-3xl  text-orange-500  font-semibold leading-10'>{new_price} <br/>
-      <small className=' text-2xl text-orange-500  font-light line-through ml-2'>
-        {product.price}
+      <p className='text-3xl  text-orange-500  font-semibold leading-6 mr-2'>Rs. {new_price} 
+      <small className=' font-semibold text-purple-500 ml-4'>
+        Rs. {product.price}
         <br/>
         -{product.discount}%
       </small>
