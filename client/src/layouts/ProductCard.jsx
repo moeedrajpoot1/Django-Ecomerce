@@ -2,7 +2,7 @@ import React from 'react'
 import '../css/custom.css'
 import PriceComponents from './PriceComponents'
 import { sale_cal } from '../functions/func'
-import Link from 'react-router-dom'
+import {Link }from 'react-router-dom'
 import Rating from './Rating'
 const ProductCard = ({product}) => {
   console.log(product.title,"producttttttttttttttttttttttttt")
