@@ -3,7 +3,9 @@ import {
     setLoading,
     setError,
     setProduct,
-    setProducts
+    setProducts,
+    setFavorites,
+setFavoritesToggle
 } from '../slices/product'
 import axios from 'axios'
 
@@ -31,3 +33,45 @@ export const fetchProduct = (id) => async (dispatch) => {
     dispatch(setError(error.message)); // Use a proper error-handling action
   }
 };
+
+export const AddToFavorites=(id)=>async(dispatch,getState)=>{
+const {
+  product:{
+    favorites
+  }
+}=getState()
+
+const newFavorites=[...favorites,id]
+localStorage.setItem("favorites",JSON.stringify(newFavorites))
+setFavorites(newFavorites)
+}
+
+export const RemoveFavorites=(id)=>async(dispatch,getState)=>{
+  const {
+    product:{
+      favorites
+    }
+  }=getState()
+  
+  const newFavorites=favorites.filter((favoritesId)=> favoritesId !==id )
+  localStorage.setItem("favorites",JSON.stringify(newFavorites))
+  setFavorites(newFavorites)
+  }
+
+  
+  
+  
+export const favoritesToggle=(toggle)=>async(dispatch,getState)=>{
+const {
+  product:{
+   products, favorites
+  }
+}=getState()
+
+if(toggle){
+  const filteredProducts=products.filter((product)=>product.favorite.includes(product._id)
+)
+}
+
+
+  }

@@ -12,7 +12,9 @@ const initialState={
     product:null,
     loading:false,
     pagination:{},
-    reviewed:false
+    reviewed:false,
+    favorites: JSON.parse(localStorage.getItem('favorites'))?? [],
+    favoritesToggle:false
 }
 
 // initial state ko pass karwna slice k andr
@@ -41,7 +43,19 @@ const ProductSlice=createSlice({
     setError:(state,{payload})=>{
         state.loading=false,
         state.error={payload}
-    }
+    },
+    setFavorites:(state,{payload})=>{
+        state.favorites={payload}
+        
+    },
+    setFavoritesToggle:(state,{payload})=>{
+        state.favorites={payload}
+        
+    },
+
+
+
+
    }
 
 
@@ -51,7 +65,9 @@ export const {
 setError,
 setLoading,
 setProduct,
-setProducts
+setProducts,
+setFavorites,
+setFavoritesToggle
 }=ProductSlice.actions
 
 
