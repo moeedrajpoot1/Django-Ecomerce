@@ -20,7 +20,7 @@ const Home = () => {
 
 
       </h1>
-      <div className='grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-5'>
+      <div className='grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-32'>
       {products && products.map((x, index) => (
         <ProductCard key={index} product={x} />// Display product name or relevant data
       ))}

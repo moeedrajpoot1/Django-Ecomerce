@@ -1,66 +1,66 @@
-import React from 'react'
-import '../css/custom.css'
-import PriceComponents from './PriceComponents'
-import { sale_cal } from '../functions/func'
-import Link from 'react-router-dom'
-import Rating from './Rating'
-const ProductCard = ({product}) => {
-  console.log(product.title,"producttttttttttttttttttttttttt")
+import React from 'react';
+import '../css/custom.css';
+import PriceComponents from './PriceComponents';
+import { sale_cal } from '../functions/func';
+import { Link } from 'react-router-dom';
+import Rating from './Rating';
+import { FaRegHeart } from "react-icons/fa";
+
+const ProductCard = ({ product }) => {
   return (
-    <div className=' rounded-lg  bg-black hover:bg-purple-800 overflow-hidden   transition duration-300 ease-in-out mx-auto '>
-
-      <div className=' relative   overflow-hidden myCard'>
-<img src={product.image} className=' object-cover object-center w-full h-full  transition-transform  duration-500 ease-in-out
- transform  hover:scale-110' />
-
+    <div className="rounded-lg bg-[#0d1117] text-white shadow-md hover:shadow-lg overflow-hidden transition duration-300 ease-in-out mx-auto w-72">
+      {/* Image Section */}
+      <div className="relative overflow-hidden">
+        <img
+          src={product.image}
+          className="object-cover object-center w-full h-72 transition-transform duration-500 ease-in-out transform hover:scale-110"
+          alt={product.name}
+        />
       </div>
-      
-<div className='p-4'>
-  <h1 className=' text-white text-center title text-xl transition duration-500 hover:text-orange-500'>
-    {product.name}
-    
-     </h1>
-     <div className=' flex justify-between text-gray-400 font-semibold text-base mt-1'>
-<span className='transition duration-500 hover:text-orange-500'>
-  {product.brand}
-</span>
-<span className=' transition duration-500 hover:text-orange-500 '>
-{product.category}
-</span>
-     </div>
-     <div className=' flex items-center justify-between mt-3'>
-<span><Rating product={product} /></span>
-<div>
-  {product.onSale ? <div className=' flex-col items-center  justify-between text-xl'>
-    <p className='mb-1 font-normal text-red-500 dark:text-gray-100'>
-      Rs: {sale_cal(product.price,product.discount,product.onSale)}
-    </p>
-  
 
-  </div>:<p className='mb-3 font-normal  text-red-500 dark:text-gray-100'>
-RS: {product.price}
-    
-    
-    
-    </p>}
-</div>
-     </div>
-<Link to={`/product/${product._id}`}>
-<button className='w-full bg-purple-400 hover:bg-black px-3 py-4 rounded duration-300   transition  ease-in-out text-white'>
-View Details 
+      {/* Product Details */}
+      <div className="p-4">
+        {/* Title */}
+        <h1 className="text-center text-lg font-bold hover:text-orange-500 transition duration-500">
+          {product.name}
+        </h1>
 
-</button>
-</Link>
+        {/* Brand and Category */}
+        <div className="flex justify-between text-gray-400 font-medium text-sm mt-1">
+          <span className="hover:text-orange-500">{product.brand}</span>
+          <span className="hover:text-orange-500">{product.category}</span>
+        </div>
 
+        {/* Rating and Price */}
+        <div className="flex items-center justify-between mt-3">
+          <span>
+            <Rating product={product} />
+          </span>
+          <div className="text-right">
+            {product.onSale ? (
+              <div className="flex flex-col items-end text-red-500">
+                <p className="text-lg font-bold">
+                  Rs: {sale_cal(product.price, product.discount, product.onSale)}
+                </p>
+                <p className="line-through text-gray-400 text-sm">
+                  {product.price}
+                </p>
+              </div>
+            ) : (
+              <p className="text-lg font-bold text-red-500">Rs: {product.price}</p>
+            )}
+          </div>
+        </div>
 
-</div>
-
-
-
-<PriceComponents product={product} />
-      <img className='product_image' src={product.image} alt='dummy'/>
+        {/* View Details Button */}
+        <Link to={`/product/${product._id}`}>
+          <button className="w-full mt-4 bg-purple-400 hover:bg-purple-600 px-3 py-2 rounded text-white font-semibold transition duration-300 ease-in-out">
+            View More
+          </button>
+        </Link>
+      </div>
     </div>
-  )
-}
+  );
+};
 
-export default ProductCard
+export default ProductCard;
