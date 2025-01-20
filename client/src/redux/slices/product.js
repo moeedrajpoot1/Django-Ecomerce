@@ -42,14 +42,14 @@ const ProductSlice=createSlice({
     },
     setError:(state,{payload})=>{
         state.loading=false,
-        state.error={payload}
+        state.error=payload
     },
     setFavorites:(state,{payload})=>{
-        state.favorites={payload}
+        state.favorites=payload
         
     },
     setFavoritesToggle:(state,{payload})=>{
-        state.favorites={payload}
+        state.favorites=payload
         
     },
 
