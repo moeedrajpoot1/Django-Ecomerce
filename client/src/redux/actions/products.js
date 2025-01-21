@@ -53,7 +53,7 @@ export const RemoveFavorites=(id)=>async(dispatch,getState)=>{
     }
   }=getState()
   
-  const newFavorites=favorites.filter((favoritesId)=> favoritesId !==id )
+  const newFavorites=favorites.filter((favoritesId)=> favoritesId !=id )
   localStorage.setItem("favorites",JSON.stringify(newFavorites))
   dispatch(setFavorites(newFavorites))
   }

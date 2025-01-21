@@ -9,8 +9,9 @@ import { AddToFavorites, RemoveFavorites } from '../redux/actions/products';
 import { useDispatch, useSelector } from 'react-redux';
 
 const ProductCard = ({ product }) => {
+  
   const dispatch = useDispatch();
-  const favorites = useSelector((state) => state.favorites || []); // Fallback to an empty array
+  const {favorites} = useSelector((state) => state.product); // Fallback to an empty array
   console.log(favorites, "favv");
 
   return (
@@ -34,7 +35,7 @@ const ProductCard = ({ product }) => {
           </span>
 
           {/* Favorites Logic */}
-          {Array.isArray(favorites) && product?.id && favorites.includes(product.id) ? (
+          {favorites.includes(product.id) ? (
             <button onClick={() => dispatch(RemoveFavorites(product.id))}>
               <GoHeartFill />
             </button>
