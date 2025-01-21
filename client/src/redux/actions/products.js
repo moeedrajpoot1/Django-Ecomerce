@@ -43,7 +43,7 @@ const {
 
 const newFavorites=[...favorites,id]
 localStorage.setItem("favorites",JSON.stringify(newFavorites))
-setFavorites(newFavorites)
+dispatch(setFavorites(newFavorites))
 }
 
 export const RemoveFavorites=(id)=>async(dispatch,getState)=>{
@@ -55,7 +55,7 @@ export const RemoveFavorites=(id)=>async(dispatch,getState)=>{
   
   const newFavorites=favorites.filter((favoritesId)=> favoritesId !==id )
   localStorage.setItem("favorites",JSON.stringify(newFavorites))
-  setFavorites(newFavorites)
+  dispatch(setFavorites(newFavorites))
   }
 
   
@@ -69,8 +69,13 @@ const {
 }=getState()
 
 if(toggle){
-  const filteredProducts=products.filter((product)=>product.favorite.includes(product._id)
-)
+  const filteredProducts=products.filter((product)=>product.favorite.includes(product.id)
+  )
+  dispatch(setFavoritesToggle(toggle))
+  dispatch(setProducts(filteredProducts))
+}else{
+  dispatch(setFavoritesToggle(false))
+  dispatch(fetchProducts(1))
 }
 
 
