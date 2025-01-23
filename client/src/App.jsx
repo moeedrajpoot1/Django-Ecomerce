@@ -9,6 +9,7 @@ import ProductDeatils from "./layouts/ProductDetails"
 import Contact from './screens/Contact'
 import NotFound from './layouts/NotFoundPage'
 import SingleProduct from './screens/SingleProduct'
+import Navigation from './layouts/Navigation'
 
 function App() {
   
@@ -24,6 +25,7 @@ Multi Vendor
 </div>
 
    <BrowserRouter>
+   <Navigation/>
    <Routes>
     <Route path='/' element={<Home/>}/>
     <Route path='/product/:id' element={<SingleProduct/>}/>
