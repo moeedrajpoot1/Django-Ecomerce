@@ -61,7 +61,7 @@ export const RemoveFavorites=(id)=>async(dispatch,getState)=>{
   
   
   
-export const favoritesToggle=(toggle)=>async(dispatch,getState)=>{
+export const favoritesToggled=(toggle)=>async(dispatch,getState)=>{
 const {
   product:{
    products, favorites
@@ -69,13 +69,13 @@ const {
 }=getState()
 
 if(toggle){
-  const filteredProducts=products.filter((product)=>product.favorite.includes(product.id)
+  const filteredProducts=products.filter((product)=>favorites.includes(product.id)
   )
   dispatch(setFavoritesToggle(toggle))
   dispatch(setProducts(filteredProducts))
 }else{
   dispatch(setFavoritesToggle(false))
-  dispatch(fetchProducts(1))
+  dispatch(fetchProducts())
 }
 
 

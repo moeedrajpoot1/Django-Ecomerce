@@ -1,6 +1,6 @@
 import React from 'react'
 import {MdOutlineFavorite, MdOutlineFavoriteBorder} from'react-icons/md'
-import {  favoritesToggle} from '../redux/actions/products'
+import {  favoritesToggled} from '../redux/actions/products'
 import {useDispatch,useSelector} from 'react-redux'
 const Navigation = () => {
     const dispatch = useDispatch()
@@ -8,12 +8,14 @@ const Navigation = () => {
   return (
     <div className='bg-slate-700 p-1 text-white'>
       {favoritesToggle ? (
-        <button onClick={()=>dispatch(favoritesToggle(false))}  >
+        <button onClick={()=>dispatch(favoritesToggled(false))}  >
             <MdOutlineFavorite className='heart2'/>
         </button>
       ):(
-        <button onClick={()=>dispatch(favoritesToggle(true))}  >
-            <MdOutlineFavorite className='heart2'/>
+        <button onClick={()=>dispatch(favoritesToggled(true))}  >
+          
+            <MdOutlineFavoriteBorder className='heart2'/>
+
         </button>
       )
 
