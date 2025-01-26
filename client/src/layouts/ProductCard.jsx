@@ -35,15 +35,15 @@ const ProductCard = ({ product }) => {
           </span>
 
           {/* Favorites Logic */}
-          {favorites.includes(product.id) ? (
-            <button onClick={() => dispatch(RemoveFavorites(product.id))}>
-              <GoHeartFill />
-            </button>
-          ) : (
-            <button onClick={() => dispatch(AddToFavorites(product.id))}>
-              <GoHeart />
-            </button>
-          )}
+          {Array.isArray(favorites) && favorites.includes(product.id) ? (
+        <button onClick={() => dispatch(RemoveFavorites(product.id))}>
+          <GoHeartFill />
+        </button>
+      ) : (
+        <button onClick={() => dispatch(AddToFavorites(product.id))}>
+          <GoHeart />
+        </button>
+      )}
         </div>
 
         {/* Brand and Category */}

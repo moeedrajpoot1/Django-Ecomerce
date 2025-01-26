@@ -13,7 +13,9 @@ const initialState={
     loading:false,
     pagination:{},
     reviewed:false,
-    favorites: JSON.parse(localStorage.getItem('favorites'))?? [],
+    favorites: Array.isArray(JSON.parse(localStorage.getItem('favorites'))) 
+    ? JSON.parse(localStorage.getItem('favorites')) 
+    : [],
     favoritesToggle:false
 }
 
@@ -49,7 +51,8 @@ const ProductSlice=createSlice({
         
     },
     setFavoritesToggle:(state,{payload})=>{
-        state.favorites=payload
+       console.log("payloadddd",payload)
+        state.favoritesToggle=payload
         
     },
 

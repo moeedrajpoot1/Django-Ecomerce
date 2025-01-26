@@ -61,22 +61,27 @@ export const RemoveFavorites=(id)=>async(dispatch,getState)=>{
   
   
   
-export const favoritesToggled=(toggle)=>async(dispatch,getState)=>{
-const {
-  product:{
-   products, favorites
-  }
-}=getState()
-
-if(toggle){
-  const filteredProducts=products.filter((product)=>favorites.includes(product.id)
-  )
-  dispatch(setFavoritesToggle(toggle))
-  dispatch(setProducts(filteredProducts))
-}else{
-  dispatch(setFavoritesToggle(false))
-  dispatch(fetchProducts())
-}
-
-
-  }
+  export const favoritesToggled = (toggle) => async (dispatch, getState) => {
+    const {
+      product: { products, favorites },
+    } = getState();
+  
+    // Ensure favorites is an array
+    if (!Array.isArray(favorites)) {
+      console.error("Invalid favorites data:", favorites);
+      return;
+    }
+  
+    if (toggle) {
+      const filteredProducts = products.filter((product) =>
+        favorites.includes(product.id)
+      );
+      console.log("toggle", toggle);
+      dispatch(setFavoritesToggle(toggle));
+      dispatch(setProducts(filteredProducts));
+    } else {
+      dispatch(setFavoritesToggle(false));
+      dispatch(fetchProducts(1));
+    }
+  };
+  
