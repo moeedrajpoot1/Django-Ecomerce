@@ -1,37 +1,101 @@
-import  { useState,useEffect } from "react";
-import {useParams,Link} from "react-router-dom"
-import { useDispatch, useSelector}from "react-redux"
-import {fetchProduct} from "../redux/actions/products"
+import { useState, useEffect } from "react";
+import { useParams, useNavigate } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { fetchProduct } from "../redux/actions/products";
 import Loader from "../layouts/Loader";
 
 const SingleProduct = () => {
-    const {id}=useParams()
-    const [selectedImageIndex, setSelectedImageIndex] = useState(0);
-    const [quantity, setQuantity] = useState(1);
-    const [open, setOpen] = useState(false);
-    const dispatch=useDispatch()
-    const {loading,product,error}=useSelector(state => state.product)
+  const { id } = useParams();
+  const navigate = useNavigate();
+  const [quantity, setQuantity] = useState(1);
+  const dispatch = useDispatch();
+  const { loading, product, error } = useSelector((state) => state.product);
 
+  useEffect(() => {
+    dispatch(fetchProduct(id));
+  }, [dispatch, id]);
 
+  if (loading) {
+    return <Loader />;
+  }
 
-  const SumbitHandleToggle = () => {
-    open ? setOpen(false) : setOpen(true);
-  };
+  if (error) {
+    return <div className="text-red-500">Error: {error}</div>;
+  }
 
-  const handleImageClick = (index) => {
-    setSelectedImageIndex(index);
-  };
-
-  // if (!product.images || product.images.length === 0)
-  //   return <div>No images for this product</div>;
-  useEffect(()=>{
-    dispatch(fetchProduct(id))
-  },[])
   return (
-    <div>
-      
-    </div>
-  )
-}
+    <div className="container mx-auto p-6">
+      {/* Back Button */}
+      <button
+        onClick={() => navigate(-1)} // Go back to the previous page
+        className="mb-6 flex items-center text-gray-700 hover:text-gray-900"
+      >
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          className="h-5 w-5 mr-2"
+          viewBox="0 0 20 20"
+          fill="currentColor"
+        >
+          <path
+            fillRule="evenodd"
+            d="M10 18a1 1 0 01-.707-.293l-7-7a1 1 0 010-1.414l7-7a1 1 0 111.414 1.414L4.414 10l6.293 6.293a1 1 0 01-1.414 1.414z"
+            clipRule="evenodd"
+          />
+        </svg>
+        Back
+      </button>
 
-export default SingleProduct
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+        {/* Product Details Section */}
+        <div>
+          <h1 className="text-3xl font-bold mb-4">{product?.name || "Product Name"}</h1>
+          <div className="mb-4">
+            <h2 className="text-lg font-semibold">Description</h2>
+            <p className="text-gray-700">
+              {product?.description || "No description available."}
+            </p>
+          </div>
+          <div>
+            <h2 className="text-lg font-semibold">Details</h2>
+            <p className="text-gray-700">
+              {product?.details || "No additional details available."}
+            </p>
+          </div>
+        </div>
+
+        {/* Pricing & Stock Section */}
+        <div className="border p-4 rounded-lg shadow-lg">
+          <h2 className="text-lg font-semibold mb-2">Price</h2>
+          <p className="text-2xl font-bold text-green-600">
+            ${product?.price || "N/A"}
+          </p>
+          <p className={`text-sm mt-2 ${product?.stock > 0 ? "text-green-500" : "text-red-500"}`}>
+            {product?.stock > 0 ? "Product available" : "Out of Stock"}
+          </p>
+          <div className="flex items-center mt-4">
+            <input
+              type="number"
+              value={quantity}
+              onChange={(e) => setQuantity(e.target.value)}
+              className="border p-2 w-16 text-center"
+              min="1"
+              disabled={product?.stock === 0}
+            />
+            <button
+              onClick={() => console.log("Add to cart clicked")}
+              disabled={product?.stock === 0}
+              className={`ml-4 px-4 py-2 rounded text-white ${
+                product?.stock > 0 ? "bg-purple-600 hover:bg-purple-700" : "bg-gray-400 cursor-not-allowed"
+              }`}
+            >
+              Add to Cart
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+export default SingleProduct;
+
