@@ -7,6 +7,7 @@ import Rating from './Rating';
 import { GoHeart, GoHeartFill } from "react-icons/go";
 import { AddToFavorites, RemoveFavorites } from '../redux/actions/products';
 import { useDispatch, useSelector } from 'react-redux';
+import MetaData from './MetaData';
 
 const ProductCard = ({ product }) => {
   
@@ -17,6 +18,7 @@ const ProductCard = ({ product }) => {
   return (
     <div className="rounded-lg bg-[#0d1117] text-white shadow-md hover:shadow-lg overflow-hidden transition duration-300 ease-in-out mx-auto w-72">
       {/* Image Section */}
+     
       <div className="relative overflow-hidden">
         <img
           src={product.image}

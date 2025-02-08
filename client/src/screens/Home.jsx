@@ -3,6 +3,7 @@ import React, { useEffect } from 'react';
 import { useDispatch,useSelector } from 'react-redux'
 import { fetchProducts } from '../redux/actions/products';
 import ProductCard from '../layouts/ProductCard';
+import MetaData from '../layouts/MetaData';
 const Home = () => {
  
  const dispatch=useDispatch()
@@ -15,6 +16,7 @@ const Home = () => {
 
   return (
     <div className=' bg-slate-800  p-4 sm:p-6 md:p-8'>
+      <MetaData title="Home" />
       <h1 className="font-mono text-white font-semibold  text-center text-6xl mb-4">
         Show All Products
 

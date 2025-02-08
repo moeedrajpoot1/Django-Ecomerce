@@ -3,6 +3,7 @@ import { useParams, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchProduct } from "../redux/actions/products";
 import Loader from "../layouts/Loader";
+import MetaData from "../layouts/MetaData";
 
 const SingleProduct = () => {
   const { id } = useParams();
@@ -25,6 +26,7 @@ const SingleProduct = () => {
 
   return (
     <div className="container mx-auto p-6">
+      <MetaData title={product.name} />
       {/* Back Button */}
       <button
         onClick={() => navigate(-1)} // Go back to the previous page
