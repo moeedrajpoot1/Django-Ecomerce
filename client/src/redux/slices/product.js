@@ -26,7 +26,7 @@ const ProductSlice=createSlice({
    name:"products",
    initialState,
    reducers:{
-    /// is k andr action creators
+    
     setLoading:(state)=>{
           state.loading=true;
 
@@ -38,8 +38,8 @@ const ProductSlice=createSlice({
 
     },
     setProduct:(state,{payload})=>{
-        state.loading=false
-        state.product=payload
+        state.loading=false;
+        state.product=payload;
         state.error=null
     },
     setError:(state,{payload})=>{
@@ -51,7 +51,7 @@ const ProductSlice=createSlice({
         
     },
     setFavoritesToggle:(state,{payload})=>{
-       console.log("payloadddd",payload)
+      
         state.favoritesToggle=payload
         
     },

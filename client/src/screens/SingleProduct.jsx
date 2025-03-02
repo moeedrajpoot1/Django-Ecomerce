@@ -23,10 +23,11 @@ const SingleProduct = () => {
   if (error) {
     return <div className="text-red-500">Error: {error}</div>;
   }
+  
 
   return (
     <div className="container mx-auto p-6">
-      <MetaData title={product.name} />
+      <MetaData title={product?.name} />
       {/* Back Button */}
       <button
         onClick={() => navigate(-1)} // Go back to the previous page
@@ -71,9 +72,10 @@ const SingleProduct = () => {
           <p className="text-2xl font-bold text-green-600">
             ${product?.price || "N/A"}
           </p>
-          <p className={`text-sm mt-2 ${product?.stock > 0 ? "text-green-500" : "text-red-500"}`}>
-            {product?.stock > 0 ? "Product available" : "Out of Stock"}
-          </p>
+         <p className={`text-sm mt-2 ${product?.stock > 0 ? "text-green-500" : "text-red-500"}`}>
+  {product?.stock > 0 ? `Product available (${product.stock} in stock)` : "Out of Stock"}
+</p>
+
           <div className="flex items-center mt-4">
             <input
               type="number"
