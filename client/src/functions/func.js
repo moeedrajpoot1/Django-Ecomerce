@@ -21,3 +21,5 @@ export const rs_to_dollar=(price)=>{
  const dollar=(price/dollar_rate)*100
  return dollar.toFixed(2)
 }
+
+

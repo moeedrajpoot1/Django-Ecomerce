@@ -28,6 +28,7 @@ const ProductCard = ({ product }) => {
       </div>
 
       {/* Product Details */}
+      <Link to={`/product/${product.id}`}>
       <div className="p-4">
         <div className="flex justify-between my-3">
           <span>
@@ -74,12 +75,13 @@ const ProductCard = ({ product }) => {
         </div>
 
         {/* View Details Button */}
-        <Link to={`/product/${product.id}`}>
+       
           <button className="w-full mt-4 bg-purple-400 hover:bg-purple-600 px-3 py-2 rounded text-white font-semibold transition duration-300 ease-in-out">
-            View More
+            ADD TO CART
           </button>
-        </Link>
+       
       </div>
+      </Link>
     </div>
   );
 };
