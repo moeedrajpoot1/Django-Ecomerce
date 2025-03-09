@@ -1,47 +1,33 @@
+import { createSlice } from '@reduxjs/toolkit';
 
-import { createSlice  } from '@reduxjs/toolkit'
+const calculateSubTotal = (cart) => {
+    if (!Array.isArray(cart)) return 0; // Ensure cart is an array
 
+    return cart.reduce((total, item) => total + item.price * item.quantity, 0);
+};
 
-const calculateSubTotal=(cart)=>{
-    let total=0;
-    total = cart.map( (items)=> total+=items.price * items.quantity )
- 
-
-    return total
-
-
-}
-
+const initialCartItems = JSON.parse(localStorage.getItem("cartitems")) || [];
 
 const initialState = {
-    error : null,
-    loading : false,
-    cartItems : JSON.parse(localStorage.getItem("cartitems"))?? [],
-    subTotal : JSON.parse(calculateSubTotal(localStorage.getItem("cartitems"))),
-    shippingInfo : JSON.parse(localStorage.getItem("shippingInfo"))?? [],
-    cartCount : 0,
-    totalItems : 0,
-}
-
-
-
+    error: null,
+    loading: false,
+    cartItems: initialCartItems,
+    subTotal: calculateSubTotal(initialCartItems), // Pass valid array
+    shippingInfo: JSON.parse(localStorage.getItem("shippingInfo")) || {},
+    cartCount: 0,
+    totalItems: 0,
+};
 
 const cartSlice = createSlice({
-    name : 'cart',
+    name: 'cart',
     initialState,
-    reducers : {
+    reducers: {
+        setloading: (state) => {
+            state.loading = true;
+        },
+    },
+});
 
-        setloading : (state)=>{
-        state.loading = true
-
-        }
-
-    }
-})
-
-export const { setloading } = cartSlice.actions
-
-
-export default cartSlice.reducer; 
-
-export const cartSelector = (state) => state.cart 
+export const { setloading } = cartSlice.actions;
+export default cartSlice.reducer;
+export const cartSelector = (state) => state.cart;
