@@ -12,8 +12,15 @@ const SingleProduct = () => {
   const dispatch = useDispatch();
   const { loading, product, error } = useSelector((state) => state.product);
 
+  console.log("Product ID:", id);
+  console.log("Product state:", product);
+  console.log("Loading state:", loading);
+  console.log("Error state:", error);
+
   useEffect(() => {
-    dispatch(fetchProduct(id));
+    if (id) {
+      dispatch(fetchProduct(id));
+    }
   }, [dispatch, id]);
 
   if (loading) {
@@ -24,9 +31,14 @@ const SingleProduct = () => {
     return <div className="text-red-500">Error: {error}</div>;
   }
 
+  // Handle case where product is null or undefined
+  if (!product) {
+    return <div className="text-red-500">Product not found</div>;
+  }
+
   return (
     <div className="container mx-auto p-6">
-      <MetaData title={product.name} />
+      <MetaData title={product?.name || "Product"} />
       {/* Back Button */}
       <button
         onClick={() => navigate(-1)} // Go back to the previous page
@@ -53,24 +65,18 @@ const SingleProduct = () => {
           <h1 className="text-3xl font-bold mb-4">{product?.name || "Product Name"}</h1>
           <div className="mb-4">
             <h2 className="text-lg font-semibold">Description</h2>
-            <p className="text-gray-700">
-              {product?.description || "No description available."}
-            </p>
+            <p className="text-gray-700">{product?.description || "No description available."}</p>
           </div>
           <div>
             <h2 className="text-lg font-semibold">Details</h2>
-            <p className="text-gray-700">
-              {product?.details || "No additional details available."}
-            </p>
+            <p className="text-gray-700">{product?.details || "No additional details available."}</p>
           </div>
         </div>
 
         {/* Pricing & Stock Section */}
         <div className="border p-4 rounded-lg shadow-lg">
           <h2 className="text-lg font-semibold mb-2">Price</h2>
-          <p className="text-2xl font-bold text-green-600">
-            ${product?.price || "N/A"}
-          </p>
+          <p className="text-2xl font-bold text-green-600">${product?.price || "N/A"}</p>
           <p className={`text-sm mt-2 ${product?.stock > 0 ? "text-green-500" : "text-red-500"}`}>
             {product?.stock > 0 ? "Product available" : "Out of Stock"}
           </p>
