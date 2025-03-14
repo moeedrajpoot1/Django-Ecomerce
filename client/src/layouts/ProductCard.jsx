@@ -14,14 +14,14 @@ const ProductCard = ({ product }) => {
   const dispatch = useDispatch();
   const {favorites} = useSelector((state) => state.product); 
  
-console.log("product iddd",product.image)
+
   return (
     <div className="rounded-lg bg-[#0d1117] text-white shadow-md hover:shadow-lg overflow-hidden transition duration-300 ease-in-out mx-auto w-72">
-      {/* Image Section */}
+    
      
       <div className="relative overflow-hidden">
       <img
-  src={`${apis[0]}${product.image}`}
+  src={`${apis[0]}${product?.images[0].image}`}
   className="object-cover object-center w-full h-72 transition-transform duration-500 ease-in-out transform hover:scale-110"
   alt={product.name}
 />

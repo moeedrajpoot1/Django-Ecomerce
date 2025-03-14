@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { fetchProduct } from "../redux/actions/products";
 import Loader from "../layouts/Loader";
 import MetaData from "../layouts/MetaData";
+import ImageGallery from "../layouts/ImageGallery"; // Import ImageGallery
 
 const SingleProduct = () => {
   const { id } = useParams();
@@ -23,14 +24,14 @@ const SingleProduct = () => {
   if (error) {
     return <div className="text-red-500">Error: {error}</div>;
   }
-  
 
   return (
     <div className="container mx-auto p-6">
       <MetaData title={product?.name} />
+
       {/* Back Button */}
       <button
-        onClick={() => navigate(-1)} // Go back to the previous page
+        onClick={() => navigate(-1)}
         className="mb-6 flex items-center text-gray-700 hover:text-gray-900"
       >
         <svg
@@ -48,8 +49,14 @@ const SingleProduct = () => {
         Back
       </button>
 
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-        {/* Product Details Section */}
+      {/* Grid Layout: Images Left | Content Right */}
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+        {/* Left: Image Gallery */}
+        <div className="md:w-full">
+          <ImageGallery images={product?.images} />
+        </div>
+
+        {/* Right: Product Details */}
         <div>
           <h1 className="text-3xl font-bold mb-4">{product?.name || "Product Name"}</h1>
           <div className="mb-4">
@@ -64,36 +71,37 @@ const SingleProduct = () => {
               {product?.details || "No additional details available."}
             </p>
           </div>
-        </div>
 
-        {/* Pricing & Stock Section */}
-        <div className="border p-4 rounded-lg shadow-lg">
-          <h2 className="text-lg font-semibold mb-2">Price</h2>
-          <p className="text-2xl font-bold text-green-600">
-            ${product?.price || "N/A"}
-          </p>
-         <p className={`text-sm mt-2 ${product?.stock > 0 ? "text-green-500" : "text-red-500"}`}>
-  {product?.stock > 0 ? `Product available (${product.stock} in stock)` : "Out of Stock"}
-</p>
+          {/* Pricing & Stock */}
+          <div className="border p-4 rounded-lg shadow-lg mt-4">
+            <h2 className="text-lg font-semibold mb-2">Price</h2>
+            <p className="text-2xl font-bold text-green-600">
+              ${product?.price || "N/A"}
+            </p>
+            <p className={`text-sm mt-2 ${product?.stock > 0 ? "text-green-500" : "text-red-500"}`}>
+              {product?.stock > 0 ? `Product available (${product.stock} in stock)` : "Out of Stock"}
+            </p>
 
-          <div className="flex items-center mt-4">
-            <input
-              type="number"
-              value={quantity}
-              onChange={(e) => setQuantity(e.target.value)}
-              className="border p-2 w-16 text-center"
-              min="1"
-              disabled={product?.stock === 0}
-            />
-            <button
-              onClick={() => console.log("Add to cart clicked")}
-              disabled={product?.stock === 0}
-              className={`ml-4 px-4 py-2 rounded text-white ${
-                product?.stock > 0 ? "bg-purple-600 hover:bg-purple-700" : "bg-gray-400 cursor-not-allowed"
-              }`}
-            >
-              Add to Cart
-            </button>
+            {/* Quantity & Add to Cart */}
+            <div className="flex items-center mt-4">
+              <input
+                type="number"
+                value={quantity}
+                onChange={(e) => setQuantity(e.target.value)}
+                className="border p-2 w-16 text-center"
+                min="1"
+                disabled={product?.stock === 0}
+              />
+              <button
+                onClick={() => console.log("Add to cart clicked")}
+                disabled={product?.stock === 0}
+                className={`ml-4 px-4 py-2 rounded text-white ${
+                  product?.stock > 0 ? "bg-purple-600 hover:bg-purple-700" : "bg-gray-400 cursor-not-allowed"
+                }`}
+              >
+                Add to Cart
+              </button>
+            </div>
           </div>
         </div>
       </div>
@@ -102,4 +110,6 @@ const SingleProduct = () => {
 };
 
 export default SingleProduct;
+
+
 

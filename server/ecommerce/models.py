@@ -14,7 +14,14 @@ class Product(models.Model):
     onSale=models.BooleanField(default=False)
     rating = models.DecimalField(decimal_places=2, default=1, max_digits=5)  # Adjusted for max_digits
     category = models.CharField(max_length=75, null=True, blank=True)  # Added max_length
-    image = models.ImageField(upload_to='media', default='media/default_image.png')  # Added default value
+     # Added default value
 
     def __str__(self):
         return self.name
+
+class ProductImage(models.Model):
+    product = models.ForeignKey("Product",related_name='images',on_delete=models.CASCADE)
+    image = models.ImageField(upload_to='media')
+
+    def __str__(self):
+        return f"Image for product id {self.product.name}"
