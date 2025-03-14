@@ -2,10 +2,7 @@
   "name": "client",
   "private": true,
   "version": "0.0.0",
-<<<<<<< Updated upstream
-=======
   "proxy": "http://127.0.0.1:8000/api/",
->>>>>>> Stashed changes
   "type": "module",
   "scripts": {
     "dev": "vite",
