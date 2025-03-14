@@ -1,4 +1,3 @@
-
 import React from 'react';
 import '../css/custom.css';
 import PriceComponents from './PriceComponents';
@@ -15,14 +14,14 @@ const ProductCard = ({ product }) => {
   const dispatch = useDispatch();
   const {favorites} = useSelector((state) => state.product); 
  
-console.log("product iddd",product.image)
-  return (<Link to={`/product/${product.id}`}>
+
+  return (
     <div className="rounded-lg bg-[#0d1117] text-white shadow-md hover:shadow-lg overflow-hidden transition duration-300 ease-in-out mx-auto w-72">
-      {/* Image Section */}
+    
      
       <div className="relative overflow-hidden">
       <img
-  src={`${apis[0]}${product.image}`}
+  src={`${apis[0]}${product?.images[0].image}`}
   className="object-cover object-center w-full h-72 transition-transform duration-500 ease-in-out transform hover:scale-110"
   alt={product.name}
 />
@@ -78,13 +77,13 @@ console.log("product iddd",product.image)
         </div>
 
         {/* View Details Button */}
-        
+        <Link to={`/product/${product.id}`}>
           <button className="w-full mt-4 bg-purple-400 hover:bg-purple-600 px-3 py-2 rounded text-white font-semibold transition duration-300 ease-in-out">
-            Add to cart
+            View More
           </button>
-       
+        </Link>
       </div>
-    </div></Link>
+    </div>
   );
 };
 

@@ -24,16 +24,21 @@ export const fetchProducts=()=> async(dispatch)=>{
 }
 
 export const fetchProduct = (id) => async (dispatch) => {
+  
+
   dispatch(setLoading());
+
   try {
     console.log("iddd",id)
     const response = await axios.get(`http://127.0.0.1:8000/api/product/${id}`);
-    console.log('responseeee',response)
-    dispatch(setProduct(response.data));
+    
+    dispatch(setProduct(response.data)); 
   } catch (error) {
-    dispatch(setError(error.message)); // Use a proper error-handling action
+    console.error("API Error:", error.message);
+    dispatch(setError(error.message));
   }
 };
+
 
 export const AddToFavorites=(id)=>async(dispatch,getState)=>{
 const {
@@ -69,7 +74,7 @@ export const RemoveFavorites=(id)=>async(dispatch,getState)=>{
   
     // Ensure favorites is an array
     if (!Array.isArray(favorites)) {
-      console.error("Invalid favorites data:", favorites);
+     
       return;
     }
   

@@ -1,33 +1,57 @@
-import { createSlice } from '@reduxjs/toolkit';
 
-const calculateSubTotal = (cart) => {
-    if (!Array.isArray(cart)) return 0; // Ensure cart is an array
+import { createSlice  } from '@reduxjs/toolkit'
 
-    return cart.reduce((total, item) => total + item.price * item.quantity, 0);
-};
 
-const initialCartItems = JSON.parse(localStorage.getItem("cartitems")) || [];
+const CalculateSubTotal=(cart)=>{
+    let total=0;
+    total = cart.map(  (items)=> (items.price * items.quantity)  )
+
+    return total
+
+
+}
+
+const UpdateLocalStorage = (cart,ShippingDeatails,subTotal) => {
+    localStorage.setItem('cartitems', JSON.stringify(cart));
+    localStorage.setItem('Shipping', JSON.stringify(ShippingDeatails))
+    localStorage.setItem('SubTotal', JSON.stringify(subTotal))
+}
+
+
+
 
 const initialState = {
-    error: null,
-    loading: false,
-    cartItems: initialCartItems,
-    subTotal: calculateSubTotal(initialCartItems), // Pass valid array
-    shippingInfo: JSON.parse(localStorage.getItem("shippingInfo")) || {},
-    cartCount: 0,
-    totalItems: 0,
-};
+    error : null,
+    loading : false,
+    cartItems : localStorage.getItem(JSON.parse('cartitems')) ?? [],
+    shippingDetails : localStorage.getItem(JSON.parse('Shipping')) ?? Number(300),
+    subTotal : localStorage.getItem(JSON.parse('cartitems')) ? 
+    CalculateSubTotal()
+    : 0,
+    subTotal : 0,
+    shippingInfo : [],
+    cartCount : 0,
+    totalItems : 0,
+}
+
+
 
 const cartSlice = createSlice({
-    name: 'cart',
+    name : 'cart',
     initialState,
-    reducers: {
-        setloading: (state) => {
-            state.loading = true;
-        },
-    },
-});
+    reducers : {
 
-export const { setloading } = cartSlice.actions;
-export default cartSlice.reducer;
-export const cartSelector = (state) => state.cart;
+        setloading : (state)=>{
+        state.loading = true
+
+        }
+
+    }
+})
+
+export const { setloading } = cartSlice.actions
+
+
+export default cartSlice.reducer;  //export reducer
+
+export const cartSelector = (state) => state.cart 
