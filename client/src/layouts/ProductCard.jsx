@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react'; // Added useState import
 import '../css/custom.css';
 import PriceComponents from './PriceComponents';
 import { sale_cal } from '../functions/func';
@@ -7,48 +7,47 @@ import Rating from './Rating';
 import { GoHeart, GoHeartFill } from "react-icons/go";
 import { AddToFavorites, RemoveFavorites } from '../redux/actions/products';
 import { useDispatch, useSelector } from 'react-redux';
-import MetaData from './MetaData';
 import apis from '../config';
+import { addToCart } from '../redux/actions/cartActions';
+
 const ProductCard = ({ product }) => {
-  
   const dispatch = useDispatch();
-  const {favorites} = useSelector((state) => state.product); 
- 
+  const { favorites } = useSelector((state) => state.product); 
+  const [qty, setQty] = useState(1); // Initial quantity starts at 1
+
+  const handleAddToCart = () => {
+    console.log(qty)
+    dispatch(addToCart(product.id, qty)); 
+    setQty(qty + 1); // Increment quantity after each click
+  };
 
   return (
     <div className="rounded-lg bg-[#0d1117] text-white shadow-md hover:shadow-lg overflow-hidden transition duration-300 ease-in-out mx-auto w-72">
-    
-     
       <div className="relative overflow-hidden">
-      <img
-  src={`${apis[0]}${product?.images[0].image}`}
-  className="object-cover object-center w-full h-72 transition-transform duration-500 ease-in-out transform hover:scale-110"
-  alt={product.name}
-/>
-
-
-
+        <img
+          src={`${apis[0]}${product?.images[0]?.image}`} // Added optional chaining to prevent errors
+          className="object-cover object-center w-full h-72 transition-transform duration-500 ease-in-out transform hover:scale-110"
+          alt={product.name}
+        />
       </div>
 
       {/* Product Details */}
       <div className="p-4">
         <div className="flex justify-between my-3">
-          <span>
-            <h1 className="text-lg font-bold hover:text-orange-500 transition duration-500">
-              {product.name}
-            </h1>
-          </span>
+          <h1 className="text-lg font-bold hover:text-orange-500 transition duration-500">
+            {product.name}
+          </h1>
 
           {/* Favorites Logic */}
           {Array.isArray(favorites) && favorites.includes(product.id) ? (
-        <button onClick={() => dispatch(RemoveFavorites(product.id))}>
-          <GoHeartFill />
-        </button>
-      ) : (
-        <button onClick={() => dispatch(AddToFavorites(product.id))}>
-          <GoHeart />
-        </button>
-      )}
+            <button onClick={() => dispatch(RemoveFavorites(product.id))}>
+              <GoHeartFill />
+            </button>
+          ) : (
+            <button onClick={() => dispatch(AddToFavorites(product.id))}>
+              <GoHeart />
+            </button>
+          )}
         </div>
 
         {/* Brand and Category */}
@@ -59,9 +58,7 @@ const ProductCard = ({ product }) => {
 
         {/* Rating and Price */}
         <div className="flex items-center justify-between mt-3">
-          <span>
-            <Rating product={product} />
-          </span>
+          <Rating product={product} />
           <div className="text-right">
             {product.onSale ? (
               <div className="flex flex-col items-end text-red-500">
@@ -76,12 +73,20 @@ const ProductCard = ({ product }) => {
           </div>
         </div>
 
-        {/* View Details Button */}
-        <Link to={`/product/${product.id}`}>
-          <button className="w-full mt-4 bg-purple-400 hover:bg-purple-600 px-3 py-2 rounded text-white font-semibold transition duration-300 ease-in-out">
-            View More
+        {/* View Details & Add to Cart Buttons */}
+        <div className="flex gap-4 mt-4">
+          <Link to={`/product/${product.id}`}>
+            <button className="w-[200px] bg-purple-400 hover:bg-purple-600 px-3 py-2 rounded text-white font-semibold transition duration-300 ease-in-out">
+              View More
+            </button>
+          </Link>
+          <button
+            onClick={handleAddToCart}
+            className="w-[200px] bg-purple-400 hover:bg-purple-600 px-3 py-2 rounded text-white font-semibold transition duration-300 ease-in-out"
+          >
+            Add to Cart ({qty})
           </button>
-        </Link>
+        </div>
       </div>
     </div>
   );
